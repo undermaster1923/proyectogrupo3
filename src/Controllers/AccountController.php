@@ -8,6 +8,17 @@ class AccountController {
         $this->service = new AccountService($db);
     }
 
+    // GET /api/clientes → listado de todos los clientes
+    public function handleList() {
+        try {
+            $result = $this->service->getAllAccounts();
+            echo json_encode($result);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+    }
+
     // GET /api/agregarcuenta/{cui} → consulta la cuenta del CUI
     public function handleGet($cui) {
         try {

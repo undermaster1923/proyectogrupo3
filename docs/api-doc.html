@@ -189,6 +189,11 @@
   </tr>
   <tr>
     <td><span class="badge badge-get">GET</span></td>
+    <td>/api/clientes</td>
+    <td>Listado de todas las cuentas registradas</td>
+  </tr>
+  <tr>
+    <td><span class="badge badge-get">GET</span></td>
     <td>/api/agregarcuenta/{cui}</td>
     <td>Consulta la cuenta asociada al CUI</td>
   </tr>
@@ -362,6 +367,39 @@
   <span class="tag-key">"error"</span>: <span class="tag-str">"Ya existe una cuenta registrada para el CUI 1234567890123."</span>
 }</div>
     <div class="note">Cada CUI solo puede tener una cuenta. Si ya existe, devuelve 409.</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     ENDPOINT 3 – GET /api/clientes
+────────────────────────────────────────── -->
+<div class="endpoint">
+  <div class="endpoint-header">
+    <span class="badge badge-get">GET</span>
+    <h2>/api/clientes</h2>
+  </div>
+  <div class="endpoint-body">
+    <p class="desc">Devuelve el listado completo de cuentas registradas, ordenadas de la más reciente a la más antigua.</p>
+
+    <div class="section-title">URL</div>
+    <div class="url-box">GET https://proyectogrupo3-rmb9.onrender.com/api/clientes</div>
+
+    <div class="section-title">Parámetros</div>
+    <p style="color:#888; font-size:12px;">Ninguno.</p>
+
+    <div class="section-title">Respuesta exitosa <span style="font-weight:400; color:#888;">200 OK</span></div>
+    <div class="code-box">{
+  <span class="tag-key">"items"</span>: <span class="tag-val">2</span>,
+  <span class="tag-key">"data"</span>: [
+    {
+      <span class="tag-key">"numero_cuenta"</span>: <span class="tag-str">"6180201605"</span>,
+      <span class="tag-key">"cui"</span>:            <span class="tag-str">"1234567890126"</span>,
+      <span class="tag-key">"tipo_cuenta"</span>:    <span class="tag-str">"Ahorro"</span>,
+      <span class="tag-key">"fecha_creacion"</span>: <span class="tag-str">"2026-06-04"</span>
+    },
+    ...
+  ]
+}</div>
   </div>
 </div>
 

@@ -26,6 +26,14 @@ class AccountService {
         return $this->repo->create($numeroCuenta, $cui);
     }
 
+    public function getAllAccounts() {
+        $data = $this->repo->getAll();
+        return [
+            'items' => count($data),
+            'data'  => $data
+        ];
+    }
+
     private function generateNumeroCuenta() {
         do {
             $numero = str_pad(random_int(0, 9999999999), 10, '0', STR_PAD_LEFT);

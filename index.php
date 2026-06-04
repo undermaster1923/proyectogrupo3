@@ -51,7 +51,17 @@ if ($path === 'api/tipocambio') {
         echo json_encode(['error' => 'Método no permitido. Solo GET.']);
     }
 
-// --- ENDPOINT 3: GET|POST /api/agregarcuenta/{cui} ---
+// --- ENDPOINT 3: GET /api/clientes ---
+// GET → devuelve el listado completo de cuentas registradas
+} elseif ($path === 'api/clientes') {
+    if ($method === 'GET') {
+        $accountController->handleList();
+    } else {
+        http_response_code(405);
+        echo json_encode(['error' => 'Método no permitido. Solo GET.']);
+    }
+
+// --- ENDPOINT 4: GET|POST /api/agregarcuenta/{cui} ---
 // GET  → consulta la cuenta asociada al CUI recibido en la URL
 // POST → crea una nueva cuenta de ahorro para el CUI recibido en la URL
 } elseif (preg_match('#^api/agregarcuenta/(\d+)$#i', $path, $matches)) {

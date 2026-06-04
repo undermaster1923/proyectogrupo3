@@ -23,6 +23,13 @@ class AccountRepository {
         return $this->findByCui($cui);
     }
 
+    public function getAll() {
+        $query = "SELECT numero_cuenta, cui, tipo_cuenta, fecha_creacion FROM cuentas ORDER BY fecha_creacion DESC";
+        $stmt  = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function numeroCuentaExists($numeroCuenta) {
         $query = "SELECT COUNT(*) FROM cuentas WHERE numero_cuenta = :numero_cuenta";
         $stmt  = $this->db->prepare($query);
