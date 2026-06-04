@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>API Banco – Documentación</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 13px;
+      color: #1a1a2e;
+      background: #fff;
+      padding: 40px 60px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    /* ── Cabecera ── */
+    header {
+      border-bottom: 3px solid #0f3460;
+      padding-bottom: 16px;
+      margin-bottom: 32px;
+    }
+    header h1 { font-size: 26px; color: #0f3460; letter-spacing: 1px; }
+    header p  { color: #555; margin-top: 4px; font-size: 12px; }
+
+    /* ── Sección de endpoint ── */
+    .endpoint {
+      margin-bottom: 36px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .endpoint-header {
+      background: #0f3460;
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .endpoint-header h2 { font-size: 14px; font-weight: 600; }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .badge-get    { background: #28a745; color: #fff; }
+    .badge-post   { background: #fd7e14; color: #fff; }
+    .badge-getpost{ background: #6f42c1; color: #fff; }
+
+    .endpoint-body { padding: 16px 20px; }
+
+    .desc { color: #444; margin-bottom: 14px; line-height: 1.6; }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #0f3460;
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
+
+    .url-box {
+      background: #f4f6fb;
+      border-left: 4px solid #0f3460;
+      padding: 8px 14px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      border-radius: 0 4px 4px 0;
+      color: #0f3460;
+      word-break: break-all;
+    }
+
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 4px;
+      font-size: 12px;
+    }
+    .param-table th {
+      background: #e8edf7;
+      text-align: left;
+      padding: 6px 10px;
+      color: #0f3460;
+      font-weight: 700;
+    }
+    .param-table td { padding: 6px 10px; border-bottom: 1px solid #eee; }
+    .param-table tr:last-child td { border-bottom: none; }
+
+    .code-box {
+      background: #1a1a2e;
+      color: #a8d8a8;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-top: 4px;
+      white-space: pre;
+      line-height: 1.6;
+    }
+
+    .tag-url   { color: #f4a261; }
+    .tag-key   { color: #7ec8e3; }
+    .tag-val   { color: #a8d8a8; }
+    .tag-str   { color: #ffd166; }
+
+    .note {
+      font-size: 11px;
+      color: #666;
+      background: #fffbea;
+      border-left: 3px solid #ffc107;
+      padding: 6px 12px;
+      border-radius: 0 4px 4px 0;
+      margin-top: 10px;
+    }
+
+    /* ── Tabla resumen ── */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+    .summary-table th {
+      background: #0f3460;
+      color: #fff;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .summary-table td { padding: 7px 12px; border-bottom: 1px solid #e0e0e0; }
+    .summary-table tr:nth-child(even) td { background: #f9f9f9; }
+
+    footer {
+      margin-top: 40px;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 12px;
+      color: #999;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    /* ── Print ── */
+    @media print {
+      body { padding: 20px 30px; }
+      .endpoint { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>API – Proyecto Banco</h1>
+  <p>Documentación para equipo frontend &nbsp;·&nbsp; Base URL: <strong>http://127.0.0.1/Proyecto_Banco</strong></p>
+</header>
+
+<!-- ─────────────────────────────────────────
+     RESUMEN
+────────────────────────────────────────── -->
+<div class="section-title" style="margin-bottom:8px;">Resumen de endpoints</div>
+<table class="summary-table">
+  <tr>
+    <th>Método</th>
+    <th>Ruta</th>
+    <th>Descripción</th>
+  </tr>
+  <tr>
+    <td><span class="badge badge-get">GET</span></td>
+    <td>/api/tipocambio</td>
+    <td>Tipo de cambio del día actual</td>
+  </tr>
+  <tr>
+    <td><span class="badge badge-post">POST</span></td>
+    <td>/api/tipocambio</td>
+    <td>Tipo de cambio de una fecha específica</td>
+  </tr>
+  <tr>
+    <td><span class="badge badge-get">GET</span></td>
+    <td>/api/historialcambio</td>
+    <td>Últimos 10 registros de tipo de cambio</td>
+  </tr>
+  <tr>
+    <td><span class="badge badge-get">GET</span></td>
+    <td>/api/agregarcuenta/{cui}</td>
+    <td>Consulta la cuenta asociada al CUI</td>
+  </tr>
+  <tr>
+    <td><span class="badge badge-post">POST</span></td>
+    <td>/api/agregarcuenta/{cui}</td>
+    <td>Crea una nueva cuenta de ahorro para el CUI</td>
+  </tr>
+</table>
+
+<br/>
+
+<!-- ─────────────────────────────────────────
+     ENDPOINT 1 – GET /api/tipocambio
+────────────────────────────────────────── -->
+<div class="endpoint">
+  <div class="endpoint-header">
+    <span class="badge badge-get">GET</span>
+    <h2>/api/tipocambio</h2>
+  </div>
+  <div class="endpoint-body">
+    <p class="desc">Devuelve el tipo de cambio del día actual (GTQ/USD). Primero busca en base de datos; si no existe, lo consulta al Web Service de Banguat y lo guarda.</p>
+
+    <div class="section-title">URL</div>
+    <div class="url-box">GET http://127.0.0.1/Proyecto_Banco/api/tipocambio</div>
+
+    <div class="section-title">Parámetros</div>
+    <p style="color:#888; font-size:12px;">Ninguno.</p>
+
+    <div class="section-title">Respuesta exitosa <span style="font-weight:400; color:#888;">200 OK</span></div>
+    <div class="code-box">{
+  <span class="tag-key">"fecha"</span>:  <span class="tag-str">"2026-06-03"</span>,
+  <span class="tag-key">"valor"</span>:  <span class="tag-str">"7.75"</span>,
+  <span class="tag-key">"source"</span>: <span class="tag-str">"Banguat WS"</span>  <span style="color:#555;">// o "Database" si vino de caché</span>
+}</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     ENDPOINT 2 – POST /api/tipocambio
+────────────────────────────────────────── -->
+<div class="endpoint">
+  <div class="endpoint-header">
+    <span class="badge badge-post">POST</span>
+    <h2>/api/tipocambio</h2>
+  </div>
+  <div class="endpoint-body">
+    <p class="desc">Devuelve el tipo de cambio de una fecha específica. Recibe la fecha en el body como JSON.</p>
+
+    <div class="section-title">URL</div>
+    <div class="url-box">POST http://127.0.0.1/Proyecto_Banco/api/tipocambio</div>
+
+    <div class="section-title">Body (JSON)</div>
+    <table class="param-table">
+      <tr><th>Campo</th><th>Tipo</th><th>Formato</th><th>Requerido</th></tr>
+      <tr><td>fecha</td><td>string</td><td>YYYYMMDD</td><td>Sí</td></tr>
+    </table>
+    <div class="code-box">{
+  <span class="tag-key">"fecha"</span>: <span class="tag-str">"20260529"</span>
+}</div>
+
+    <div class="section-title">Respuesta exitosa <span style="font-weight:400; color:#888;">200 OK</span></div>
+    <div class="code-box">{
+  <span class="tag-key">"fecha"</span>:  <span class="tag-str">"2026-05-29"</span>,
+  <span class="tag-key">"valor"</span>:  <span class="tag-str">"7.74"</span>,
+  <span class="tag-key">"source"</span>: <span class="tag-str">"Database"</span>
+}</div>
+    <div class="note">La fecha en el body va sin guiones (YYYYMMDD). La respuesta la devuelve con guiones (YYYY-MM-DD).</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     ENDPOINT 3 – GET /api/historialcambio
+────────────────────────────────────────── -->
+<div class="endpoint">
+  <div class="endpoint-header">
+    <span class="badge badge-get">GET</span>
+    <h2>/api/historialcambio</h2>
+  </div>
+  <div class="endpoint-body">
+    <p class="desc">Devuelve los últimos 10 registros de tipo de cambio almacenados en base de datos, ordenados del más reciente al más antiguo.</p>
+
+    <div class="section-title">URL</div>
+    <div class="url-box">GET http://127.0.0.1/Proyecto_Banco/api/historialcambio</div>
+
+    <div class="section-title">Parámetros</div>
+    <p style="color:#888; font-size:12px;">Ninguno.</p>
+
+    <div class="section-title">Respuesta exitosa <span style="font-weight:400; color:#888;">200 OK</span></div>
+    <div class="code-box">{
+  <span class="tag-key">"items"</span>: <span class="tag-val">10</span>,
+  <span class="tag-key">"data"</span>: [
+    { <span class="tag-key">"fecha"</span>: <span class="tag-str">"2026-06-03"</span>, <span class="tag-key">"tipocambio"</span>: <span class="tag-str">"7.75"</span> },
+    { <span class="tag-key">"fecha"</span>: <span class="tag-str">"2026-06-02"</span>, <span class="tag-key">"tipocambio"</span>: <span class="tag-str">"7.74"</span> },
+    ...
+  ]
+}</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     ENDPOINT 4 – GET /api/agregarcuenta/{cui}
+────────────────────────────────────────── -->
+<div class="endpoint">
+  <div class="endpoint-header">
+    <span class="badge badge-get">GET</span>
+    <h2>/api/agregarcuenta/{cui}</h2>
+  </div>
+  <div class="endpoint-body">
+    <p class="desc">Consulta la cuenta de ahorro asociada a un CUI. El CUI se pasa directamente en la URL.</p>
+
+    <div class="section-title">URL</div>
+    <div class="url-box">GET http://127.0.0.1/Proyecto_Banco/api/agregarcuenta/<span style="color:#f4a261;">1234567890123</span></div>
+
+    <div class="section-title">Parámetro de URL</div>
+    <table class="param-table">
+      <tr><th>Parámetro</th><th>Tipo</th><th>Descripción</th></tr>
+      <tr><td>cui</td><td>numérico</td><td>CUI del titular (13 dígitos)</td></tr>
+    </table>
+
+    <div class="section-title">Respuesta exitosa <span style="font-weight:400; color:#888;">200 OK</span></div>
+    <div class="code-box">{
+  <span class="tag-key">"numero_cuenta"</span>:  <span class="tag-str">"0483920174"</span>,
+  <span class="tag-key">"cui"</span>:            <span class="tag-str">"1234567890123"</span>,
+  <span class="tag-key">"tipo_cuenta"</span>:    <span class="tag-str">"Ahorro"</span>,
+  <span class="tag-key">"fecha_creacion"</span>: <span class="tag-str">"2026-06-03"</span>,
+  <span class="tag-key">"saldo"</span>:          <span class="tag-str">"100.00"</span>
+}</div>
+
+    <div class="section-title">Respuesta de error <span style="font-weight:400; color:#888;">404 Not Found</span></div>
+    <div class="code-box">{
+  <span class="tag-key">"error"</span>: <span class="tag-str">"No se encontró una cuenta asociada al CUI 1234567890123."</span>
+}</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     ENDPOINT 5 – POST /api/agregarcuenta/{cui}
+────────────────────────────────────────── -->
+<div class="endpoint">
+  <div class="endpoint-header">
+    <span class="badge badge-post">POST</span>
+    <h2>/api/agregarcuenta/{cui}</h2>
+  </div>
+  <div class="endpoint-body">
+    <p class="desc">Crea una nueva cuenta de ahorro para el CUI indicado. Genera un número de cuenta de 10 dígitos automáticamente. El saldo inicial es Q100.00. No acepta body.</p>
+
+    <div class="section-title">URL</div>
+    <div class="url-box">POST http://127.0.0.1/Proyecto_Banco/api/agregarcuenta/<span style="color:#f4a261;">1234567890123</span></div>
+
+    <div class="section-title">Parámetro de URL</div>
+    <table class="param-table">
+      <tr><th>Parámetro</th><th>Tipo</th><th>Descripción</th></tr>
+      <tr><td>cui</td><td>numérico</td><td>CUI del titular (13 dígitos)</td></tr>
+    </table>
+
+    <div class="section-title">Body</div>
+    <p style="color:#888; font-size:12px;">No requiere body.</p>
+
+    <div class="section-title">Respuesta exitosa <span style="font-weight:400; color:#888;">201 Created</span></div>
+    <div class="code-box">{
+  <span class="tag-key">"numero_cuenta"</span>:  <span class="tag-str">"0483920174"</span>,
+  <span class="tag-key">"cui"</span>:            <span class="tag-str">"1234567890123"</span>,
+  <span class="tag-key">"tipo_cuenta"</span>:    <span class="tag-str">"Ahorro"</span>,
+  <span class="tag-key">"fecha_creacion"</span>: <span class="tag-str">"2026-06-03"</span>,
+  <span class="tag-key">"saldo"</span>:          <span class="tag-str">"100.00"</span>
+}</div>
+
+    <div class="section-title">Respuesta de error <span style="font-weight:400; color:#888;">409 Conflict</span></div>
+    <div class="code-box">{
+  <span class="tag-key">"error"</span>: <span class="tag-str">"Ya existe una cuenta registrada para el CUI 1234567890123."</span>
+}</div>
+    <div class="note">Cada CUI solo puede tener una cuenta. Si ya existe, devuelve 409.</div>
+  </div>
+</div>
+
+<footer>
+  Proyecto Banco &nbsp;·&nbsp; API REST &nbsp;·&nbsp; Generado el 2026-06-03
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:grupo3ingenieria.atwebpages.com)",
+      "Bash(curl -s -w \"\\\\nHTTP_CODE:%{http_code}\" http://localhost:8080/api/tipocambio)",
+      "Bash(docker exec *)"
+    ]
+  }
+}
